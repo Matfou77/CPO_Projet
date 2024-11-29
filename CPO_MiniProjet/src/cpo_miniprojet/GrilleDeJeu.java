@@ -72,7 +72,8 @@ public class GrilleDeJeu {
         }
 
         matriceCellules[ligne][colonne].revelerCellule();
-
+        matriceCellules[ligne][colonne].estDevoilee();
+        
         if (matriceCellules[ligne][colonne].getNbBombesAdjacentes() == 0 && !matriceCellules[ligne][colonne].getPresenceBombe()) {
             for (int di = -1; di <= 1; di++) {
                 for (int dj = -1; dj <= 1; dj++) {
@@ -91,6 +92,16 @@ public class GrilleDeJeu {
             }
         }
         return true;
+    }
+    
+    public void reveleBombe(){
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].getPresenceBombe()) {
+                        matriceCellules[i][j].revelerCellule();
+                }
+            }
+        }
     }
 
     @Override

@@ -27,12 +27,13 @@ public class Partie {
             System.out.println("Grille actuelle :");
             System.out.println(grille);
 
-            System.out.print("Entrez la ligne et la colonne à révéler (ex : 0 1) : ");
+            System.out.print("Entrez la ligne et la colonne a reveler (ex : 0 1 ) Max 8 et min 0 : ");
             int ligne = scanner.nextInt();
             int colonne = scanner.nextInt();
 
             if (grille.matriceCellules[ligne][colonne].getPresenceBombe()) {
                 System.out.println("BOOM! Vous avez touché une bombe. Partie terminée.");
+                grille.reveleBombe();
                 partieEnCours = false;
             } else {
                 grille.revelerCellule(ligne, colonne);
