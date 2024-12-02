@@ -31,7 +31,7 @@ public class GrilleDeJeu {
         }
     }
 
-    public void placerBombesAleatoirement() {
+    public void placerBombesAleatoirement(int premierLigne, int premierColonne) {
         Random random = new Random();
         int bombesPlacees = 0;
 
@@ -39,9 +39,10 @@ public class GrilleDeJeu {
             int ligne = random.nextInt(nbLignes);
             int colonne = random.nextInt(nbColonnes);
 
-            if (!matriceCellules[ligne][colonne].getPresenceBombe()) {
-                matriceCellules[ligne][colonne].placerBombe();
-                bombesPlacees++;
+            if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
+            (Math.abs(ligne - premierLigne) > 1 || Math.abs(colonne - premierColonne) > 1)) {
+            matriceCellules[ligne][colonne].placerBombe();
+            bombesPlacees++;
             }
         }
     }
