@@ -11,16 +11,26 @@ package cpo_miniprojet;
 public class Cellule {
     private boolean presenceBombe;
     private boolean devoilee;
+    private boolean marquee; // Nouveau : indique si la cellule est marquée
     private int nbBombesAdjacentes;
 
     public Cellule() {
         this.presenceBombe = false;
         this.devoilee = false;
+        this.marquee = false;
         this.nbBombesAdjacentes = 0;
     }
 
     public boolean getPresenceBombe() {
         return presenceBombe;
+    }
+
+    public boolean estDevoilee() {
+        return devoilee;
+    }
+
+    public boolean estMarquee() {
+        return marquee;
     }
 
     public int getNbBombesAdjacentes() {
@@ -36,23 +46,30 @@ public class Cellule {
     }
 
     public void revelerCellule() {
-        this.devoilee = true;
+        if (!marquee) {
+            this.devoilee = true; // Une cellule marquée ne peut pas être révélée
+        }
     }
 
-    public boolean estDevoilee() {
-        return devoilee;
+    public void basculerMarque() {
+        if (!devoilee) {
+            this.marquee = !this.marquee; // Alterne entre marqué et non marqué
+        }
     }
 
     @Override
     public String toString() {
-        if (!devoilee) {
-            return "?";
+        if (marquee) {
+            return "D"; // D pour Drapeau
+        } else if (!devoilee) {
+            return "?"; // Non dévoilée
         } else if (presenceBombe) {
-            return "B";
+            return "B"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {
-            return String.valueOf(nbBombesAdjacentes);
+            return String.valueOf(nbBombesAdjacentes); // Nombre de bombes adjacentes
         } else {
-            return " ";
+            return " "; // Cellule vide
         }
     }
 }
+
