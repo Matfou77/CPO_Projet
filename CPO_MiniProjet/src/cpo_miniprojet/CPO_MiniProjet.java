@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package cpo_miniprojet;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -15,7 +16,8 @@ public class CPO_MiniProjet {
      */
     public static void main(String[] args) {
         Partie partie = new Partie();
-        partie.initialiserPartie();
+        partie.initialiserPartie(9, 9, 10);
         partie.demarrerPartie();
-        }
+        
     }
+}
