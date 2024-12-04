@@ -1,29 +1,39 @@
 package cpo_miniprojet;
 
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Random;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Random;
+
 /**
  *
  * @author foure
  */
 public class Interface extends JFrame {
-    private JPanel panneauGrille; // Panneau pour afficher la grille
-    private JButton[][] boutons; // Boutons de l'interface
-    private boolean[][] bombes; // Grille logique pour les bombes
-    private int[][] bombesAdjacentes; // Nombre de bombes adjacentes à chaque cellule
-    private boolean[][] devoilees; // État des cellules dévoilées
-    private boolean[][] drapeaux; // État des cellules marquées par un drapeau
-    private int lignes = 9; // Taille de la grille (par défaut)
-    private int colonnes = 9;
-    private int nombreBombes = 10;
-    private boolean premierCoup = true; // Permet de sécuriser le premier clic
+    private JPanel panneauGrille;          // Panneau pour afficher la grille
+    private JButton[][] boutons;          // Boutons de l'interface graphique
+    private boolean[][] bombes;           // Grille logique des bombes
+    private int[][] bombesAdjacentes;     // Nombre de bombes adjacentes par cellule
+    private boolean[][] devoilees;        // État des cellules dévoilées
+    private boolean[][] drapeaux;         // État des cellules avec drapeau
+    private final int lignes = 9;         // Taille de la grille
+    private final int colonnes = 9;
+    private final int nombreBombes = 10;  // Nombre de bombes dans la grille
+    private boolean premierCoup = true;   // Sécuriser le premier clic
 
     public Interface() {
         setTitle("Démineur");
@@ -36,6 +46,9 @@ public class Interface extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Initialise les grilles logiques pour les bombes, drapeaux et cellules dévoilées.
+     */
     private void initialiserGrille() {
         bombes = new boolean[lignes][colonnes];
         bombesAdjacentes = new int[lignes][colonnes];
@@ -43,6 +56,9 @@ public class Interface extends JFrame {
         drapeaux = new boolean[lignes][colonnes];
     }
 
+    /**
+     * Place les bombes sur la grille tout en évitant la case initialement cliquée.
+     */
     private void placerBombes(int exclureLigne, int exclureColonne) {
         Random random = new Random();
         int bombesPlacees = 0;
@@ -51,7 +67,6 @@ public class Interface extends JFrame {
             int ligne = random.nextInt(lignes);
             int colonne = random.nextInt(colonnes);
 
-            // Ne pas placer une bombe sur la case du premier clic ni sur les adjacents immédiats
             if (!bombes[ligne][colonne] && (ligne != exclureLigne || colonne != exclureColonne)) {
                 bombes[ligne][colonne] = true;
                 bombesPlacees++;
@@ -61,6 +76,9 @@ public class Interface extends JFrame {
         calculerBombesAdjacentes();
     }
 
+    /**
+     * Calcule le nombre de bombes adjacentes pour chaque cellule.
+     */
     private void calculerBombesAdjacentes() {
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
@@ -82,6 +100,9 @@ public class Interface extends JFrame {
         }
     }
 
+    /**
+     * Crée l'interface utilisateur et initialise les boutons.
+     */
     private void creerInterface() {
         panneauGrille = new JPanel();
         panneauGrille.setLayout(new GridLayout(lignes, colonnes));
@@ -92,9 +113,10 @@ public class Interface extends JFrame {
                 boutons[i][j] = new JButton("?");
                 boutons[i][j].setFont(new Font("Arial", Font.BOLD, 14));
                 boutons[i][j].setBackground(Color.GRAY);
+
                 final int ligne = i, colonne = j;
 
-                // Ajout d'écouteurs pour les clics
+                // Ajouter des écouteurs pour les clics gauche et droit
                 boutons[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
@@ -114,6 +136,9 @@ public class Interface extends JFrame {
         pack();
     }
 
+    /**
+     * Révèle une cellule de la grille.
+     */
     private void revelerCellule(int ligne, int colonne) {
         if (drapeaux[ligne][colonne] || devoilees[ligne][colonne]) return;
 
@@ -135,6 +160,8 @@ public class Interface extends JFrame {
         } else {
             boutons[ligne][colonne].setText(" ");
             boutons[ligne][colonne].setBackground(Color.LIGHT_GRAY);
+
+            // Révéler les cellules adjacentes
             for (int di = -1; di <= 1; di++) {
                 for (int dj = -1; dj <= 1; dj++) {
                     int ni = ligne + di, nj = colonne + dj;
@@ -148,40 +175,34 @@ public class Interface extends JFrame {
         verifierVictoire();
     }
 
+    /**
+     * Basculer l'état d'un drapeau sur une cellule.
+     */
     private void basculerDrapeau(int ligne, int colonne) {
         if (devoilees[ligne][colonne]) return;
 
         drapeaux[ligne][colonne] = !drapeaux[ligne][colonne];
-        if (drapeaux[ligne][colonne]) {
-            boutons[ligne][colonne].setText("D");
-            boutons[ligne][colonne].setForeground(Color.BLUE);
-        } else {
-            boutons[ligne][colonne].setText("?");
-            boutons[ligne][colonne].setForeground(Color.BLACK);
-        }
+        boutons[ligne][colonne].setText(drapeaux[ligne][colonne] ? "D" : "?");
+        boutons[ligne][colonne].setForeground(drapeaux[ligne][colonne] ? Color.BLUE : Color.BLACK);
     }
 
+    /**
+     * Vérifie si le joueur a gagné la partie.
+     */
     private void verifierVictoire() {
-        boolean toutesRevelees = true;
-
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
                 if (!bombes[i][j] && !devoilees[i][j]) {
-                    toutesRevelees = false;
-                    break;
+                    return;
                 }
             }
         }
 
-        if (toutesRevelees) {
-            JOptionPane.showMessageDialog(this, "Félicitations! Vous avez gagné.");
-            System.exit(0);
-        }
+        JOptionPane.showMessageDialog(this, "Félicitations! Vous avez gagné.");
+        System.exit(0);
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Interface::new);
     }
 }
-
-
