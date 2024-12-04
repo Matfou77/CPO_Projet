@@ -34,13 +34,11 @@ public class GrilleDeJeu {
     public void placerBombesAleatoirement(int premierLigne, int premierColonne) {
     Random random = new Random();
     int bombesPlacees = 0;
-
     while (bombesPlacees < nbBombes) {
         int ligne = random.nextInt(nbLignes);
         int colonne = random.nextInt(nbColonnes);
 
-        // Vérifie que la bombe n'est pas placée sur ou autour de la première cellule
-        if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
+            if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
             (Math.abs(ligne - premierLigne) > 1 || Math.abs(colonne - premierColonne) > 1)) {
             matriceCellules[ligne][colonne].placerBombe();
             bombesPlacees++;
