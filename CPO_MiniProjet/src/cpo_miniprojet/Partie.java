@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Partie {
     private GrilleDeJeu grille;
 
-    public void initialiserPartie(int par, int par1, int par2) {
+    public void initialiserPartie() {
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Choisissez un niveau de difficulte :");
@@ -39,7 +39,7 @@ public class Partie {
             bombes = 99;
             break;
         default:
-            System.out.println("Niveau invalide. Le niveau facile sera selectionne par defaut.");
+            System.out.println("Niveau invalide. Le niveau facile sera sélectionné par défaut.");
             lignes = 9;
             colonnes = 9;
             bombes = 10;
@@ -99,7 +99,7 @@ public class Partie {
 
     public static void main(String[] args) {
         Partie partie = new Partie();
-        partie.initialiserPartie(9, 9, 10);
+        partie.initialiserPartie();
         partie.demarrerPartie();
     }
 }

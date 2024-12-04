@@ -13,12 +13,15 @@ public class Cellule {
     private boolean devoilee;
     private boolean marquee; // Nouveau : indique si la cellule est marquée
     private int nbBombesAdjacentes;
+    
 
     public Cellule() {
         this.presenceBombe = false;
         this.devoilee = false;
         this.marquee = false;
         this.nbBombesAdjacentes = 0;
+        this.marquee = false;
+
     }
 
     public boolean getPresenceBombe() {
@@ -59,10 +62,10 @@ public class Cellule {
 
     @Override
     public String toString() {
-        if (marquee) {
-            return "D"; // D pour Drapeau
-        } else if (!devoilee) {
-            return "?"; // Non dévoilée
+        if(marquee){
+            return "D";
+        }else if (!devoilee) {
+            return "?";
         } else if (presenceBombe) {
             return "B"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {
