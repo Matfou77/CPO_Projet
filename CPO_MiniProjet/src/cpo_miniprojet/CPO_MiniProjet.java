@@ -16,7 +16,8 @@ public class CPO_MiniProjet {
      */
     public static void main(String[] args) {
         Partie partie = new Partie();
-        partie.initialiserPartie();        partie.demarrerPartie();
+        partie.initialiserPartie();       
+        partie.demarrerPartie();
         
     }
 }
