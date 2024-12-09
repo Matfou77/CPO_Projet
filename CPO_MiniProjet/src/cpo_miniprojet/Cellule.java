@@ -65,7 +65,7 @@ public class Cellule {
         if(marquee){
             return "D";
         }else if (!devoilee) {
-            return " ";
+            return "?";
         } else if (presenceBombe) {
             return "B"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {

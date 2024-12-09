@@ -105,7 +105,6 @@ public class Interface extends javax.swing.JFrame {
     private void initComponents() {
 
         PanneauGrille = new javax.swing.JPanel();
-        btnLigne0 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -114,38 +113,21 @@ public class Interface extends javax.swing.JFrame {
         PanneauGrille.setBackground(new java.awt.Color(80, 80, 80));
         PanneauGrille.setPreferredSize(new java.awt.Dimension(360, 360));
 
-        btnLigne0.setText("btnLigne0");
-        btnLigne0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLigne0ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanneauGrilleLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(btnLigne0, javax.swing.GroupLayout.PREFERRED_SIZE, 75, Short.MAX_VALUE)
-                .addGap(479, 479, 479))
+            .addGap(0, 611, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanneauGrilleLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(btnLigne0)
-                .addContainerGap(512, Short.MAX_VALUE))
+            .addGap(0, 587, Short.MAX_VALUE)
         );
 
         getContentPane().add(PanneauGrille, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnLigne0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLigne0ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLigne0ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +166,5 @@ public class Interface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanneauGrille;
-    private javax.swing.JButton btnLigne0;
     // End of variables declaration//GEN-END:variables
 }
