@@ -8,7 +8,7 @@ import java.util.Random;
  *
  * @author foure
  */
-public class GrilleDeJeu {
+public final class GrilleDeJeu {
     
     Cellule[][] matriceCellules;
     private final int nbLignes;
@@ -20,10 +20,9 @@ public class GrilleDeJeu {
         this.nbColonnes = nbColonnes;
         this.nbBombes = nbBombes;
         this.matriceCellules = new Cellule[nbLignes][nbColonnes];
-        initialiserGrille();
     }
 
-    private void initialiserGrille() {
+    public void initialiserGrille() {
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 matriceCellules[i][j] = new Cellule();
