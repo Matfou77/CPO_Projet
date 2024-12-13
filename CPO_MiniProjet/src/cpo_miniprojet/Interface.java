@@ -1,12 +1,9 @@
 package cpo_miniprojet;
 
-import java.awt.GridLayout;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author foure
@@ -24,10 +21,22 @@ public final class Interface extends javax.swing.JFrame {
         initComponents();
         initialiserPartie();
         PanneauGrille.setLayout(new java.awt.GridLayout(10, 10)); 
+        m.placerBombesAleatoirement(PROPERTIES, PROPERTIES);
         
         for (int i=0; i < 10; i++) { 
             for (int j=0; j < 10; j++ ) { 
                 CelluleGraphique c = new CelluleGraphique(m.matriceCellules[i][j], j,i);
+                c.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        //action a effectuer
+                        m.calculerBombesAdjacentes();
+                        m.clickSurCellule(c.y , c.x);
+                        m.revelerCellule(c.y, c.x);
+                        m.toutesCellulesRevelees();
+                        PanneauGrille.repaint();
+                    }
+                });
+                
                 PanneauGrille.add(c); // ajout au Jpanel PanneauGrille 
             } 
         } 

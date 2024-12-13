@@ -120,5 +120,9 @@ public final class GrilleDeJeu {
         }
         return sb.toString();
     }
+
+    void clickSurCellule(int i, int j) {
+        revelerCellule(i-1,j-1);
+        }
 }
 

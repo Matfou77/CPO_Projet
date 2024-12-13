@@ -12,7 +12,40 @@ public class Partie {
     private GrilleDeJeu grille;
 
     public void initialiserPartie() {
-    grille = new GrilleDeJeu(10, 10, 10);
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Choisissez un niveau de difficulte :");
+    System.out.println("1. Facile (9x9, 10 bombes)");
+    System.out.println("2. Intermediaire (16x16, 40 bombes)");
+    System.out.println("3. Difficile (30x16, 99 bombes)");
+
+    int niveau = scanner.nextInt();
+    int lignes = 0, colonnes = 0, bombes = 0;
+
+    switch (niveau) {
+        case 1: // Niveau facile
+            lignes = 9;
+            colonnes = 9;
+            bombes = 10;
+            break;
+        case 2: // Niveau intermédiaire
+            lignes = 16;
+            colonnes = 16;
+            bombes = 40;
+            break;
+        case 3: // Niveau difficile
+            lignes = 16;
+            colonnes = 30;
+            bombes = 99;
+            break;
+        default:
+            System.out.println("Niveau invalide. Le niveau facile sera sélectionné par défaut.");
+            lignes = 9;
+            colonnes = 9;
+            bombes = 10;
+    }
+
+    grille = new GrilleDeJeu(lignes, colonnes, bombes);
 }
 
 
