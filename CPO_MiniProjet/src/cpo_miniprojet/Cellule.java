@@ -62,7 +62,7 @@ public class Cellule {
         if (marquee) {
             return "D"; // D pour Drapeau
         } else if (!devoilee) {
-            return "?"; // Non dévoilée
+            return " "; // Non dévoilée
         } else if (presenceBombe) {
             return "B"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {

@@ -26,15 +26,10 @@ public final class Interface extends javax.swing.JFrame {
         for (int i=0; i < 10; i++) { 
             for (int j=0; j < 10; j++ ) { 
                 CelluleGraphique c = new CelluleGraphique(m.matriceCellules[i][j], j,i);
-                c.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        //action a effectuer 
-                        m.calculerBombesAdjacentes();
-                        m.clickSurCellule(c.y , c.x);
-                        m.revelerCellule(c.y, c.x);
-                        m.toutesCellulesRevelees();
-                        PanneauGrille.repaint();
-                    }
+                c.addActionListener((java.awt.event.ActionEvent evt) -> {
+                    //action a effectuer
+                    m.clickSurCellule(c.y , c.x);
+                    PanneauGrille.repaint();
                 });
                 
                 PanneauGrille.add(c); // ajout au Jpanel PanneauGrille 
