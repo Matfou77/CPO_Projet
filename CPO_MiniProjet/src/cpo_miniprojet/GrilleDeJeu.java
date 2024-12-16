@@ -36,18 +36,19 @@ public class GrilleDeJeu {
     Random random = new Random();
     int bombesPlacees = 0;
 
+    // Placer les bombes en excluant la cellule cliquée et les cellules adjacentes
     while (bombesPlacees < nbBombes) {
         int ligne = random.nextInt(nbLignes);
         int colonne = random.nextInt(nbColonnes);
 
-        // Vérifie que la bombe n'est pas placée sur ou autour de la première cellule
+        // Vérifier que la cellule n'est pas déjà une bombe et qu'elle est à une distance sécuritaire
         if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
             (Math.abs(ligne - premierLigne) > 1 || Math.abs(colonne - premierColonne) > 1)) {
             matriceCellules[ligne][colonne].placerBombe();
             bombesPlacees++;
-            }
         }
     }
+}
 
 
     public void calculerBombesAdjacentes() {
@@ -74,23 +75,26 @@ public class GrilleDeJeu {
         }
     }
 
+public void revelerCellule(int ligne, int colonne) {
+    if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes || matriceCellules[ligne][colonne].estDevoilee()) {
+        return; // Si la cellule est hors limites ou déjà révélée, on ne fait rien
+    }
 
-    public void revelerCellule(int ligne, int colonne) {
-        if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes || matriceCellules[ligne][colonne].estDevoilee()) {
-            return;
-        }
+    matriceCellules[ligne][colonne].revelerCellule();
 
-        matriceCellules[ligne][colonne].revelerCellule();
-        matriceCellules[ligne][colonne].estDevoilee();
-        
-        if (matriceCellules[ligne][colonne].getNbBombesAdjacentes() == 0 && !matriceCellules[ligne][colonne].getPresenceBombe()) {
-            for (int di = -1; di <= 1; di++) {
-                for (int dj = -1; dj <= 1; dj++) {
-                    revelerCellule(ligne + di, colonne + dj);
-                }
+    // Si la cellule n'a aucune bombe adjacente, révéler toutes ses voisines
+    if (matriceCellules[ligne][colonne].getNbBombesAdjacentes() == 0) {
+        for (int di = -1; di <= 1; di++) {
+            for (int dj = -1; dj <= 1; dj++) {
+                int ni = ligne + di;
+                int nj = colonne + dj;
+                revelerCellule(ni, nj);
             }
         }
     }
+}
+
+
 
     public boolean toutesCellulesRevelees() {
         for (int i = 0; i < nbLignes; i++) {
@@ -112,14 +116,60 @@ public class GrilleDeJeu {
             }
         }
     }
-public void clickSurCellule(int i, int j) {
-    if (matriceCellules[i][j].getPresenceBombe()) { // Vérifie si la cellule contient une bombe
+
+    public boolean premierClicEstValide(int i, int j) {
+    // Vérifier que la case cliquée et ses voisines ne contiennent aucune bombe
+    for (int di = -1; di <= 1; di++) {
+        for (int dj = -1; dj <= 1; dj++) {
+            int ni = i + di;
+            int nj = j + dj;
+
+            // Vérifie si les indices sont dans les limites de la grille
+            if (ni >= 0 && ni < nbLignes && nj >= 0 && nj < nbColonnes) {
+                // Si une cellule voisine contient une bombe, le premier clic est invalide
+                if (matriceCellules[ni][nj].getPresenceBombe()) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+    boolean premierClic = false;
+    
+    public void clickSurCellule(int i, int j) {
+    // Si c'est le premier clic
+    if (!premierClic) {
+        premierClic = true;
+        
+        // Vérifier que la case cliquée est valide (sans bombe et sans bombes autour)
+        while (!premierClicEstValide(i, j)) {
+            // Si la case n'est pas valide, on demande un autre clic
+            JOptionPane.showMessageDialog(null, "Veuillez cliquer sur une cellule sans bombe autour.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            return; // Empêche de continuer si le clic est invalide
+        }
+        
+        // Placer les bombes après le premier clic (en excluant les voisins)
+        placerBombesAleatoirement(i, j);
+        calculerBombesAdjacentes();  // Calculer les bombes adjacentes à chaque cellule
+    }
+
+    // Vérifier si la cellule contient une bombe
+    if (matriceCellules[i][j].getPresenceBombe()) {
         JOptionPane.showMessageDialog(null, "Vous avez perdu !", "Game Over", JOptionPane.ERROR_MESSAGE);
-        System.exit(0); // Ferme le jeu ou ajoute une autre logique de fin
-    } else {
-        revelerCellule(i, j); // Sinon, révélez la cellule
+        System.exit(0); // Ferme le jeu si une bombe est révélée
+    }
+
+    // Révéler la cellule
+    revelerCellule(i, j);
+
+    // Vérifier si toutes les cellules sans bombe sont révélées
+    if (toutesCellulesRevelees()) {
+        JOptionPane.showMessageDialog(null, "Félicitations ! Vous avez gagné !", "Victoire", JOptionPane.INFORMATION_MESSAGE);
     }
 }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
