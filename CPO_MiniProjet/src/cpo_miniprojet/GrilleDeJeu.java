@@ -4,11 +4,12 @@
  */
 package cpo_miniprojet;
 import java.util.Random;
+import javax.swing.JOptionPane;
 /**
  *
  * @author foure
  */
-public final class GrilleDeJeu {
+public class GrilleDeJeu {
     
     Cellule[][] matriceCellules;
     private final int nbLignes;
@@ -20,9 +21,10 @@ public final class GrilleDeJeu {
         this.nbColonnes = nbColonnes;
         this.nbBombes = nbBombes;
         this.matriceCellules = new Cellule[nbLignes][nbColonnes];
+        initialiserGrille();
     }
 
-    public void initialiserGrille() {
+    void initialiserGrille() {
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 matriceCellules[i][j] = new Cellule();
@@ -33,11 +35,13 @@ public final class GrilleDeJeu {
     public void placerBombesAleatoirement(int premierLigne, int premierColonne) {
     Random random = new Random();
     int bombesPlacees = 0;
+
     while (bombesPlacees < nbBombes) {
         int ligne = random.nextInt(nbLignes);
         int colonne = random.nextInt(nbColonnes);
 
-            if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
+        // Vérifie que la bombe n'est pas placée sur ou autour de la première cellule
+        if (!matriceCellules[ligne][colonne].getPresenceBombe() &&
             (Math.abs(ligne - premierLigne) > 1 || Math.abs(colonne - premierColonne) > 1)) {
             matriceCellules[ligne][colonne].placerBombe();
             bombesPlacees++;
@@ -108,7 +112,14 @@ public final class GrilleDeJeu {
             }
         }
     }
-
+public void clickSurCellule(int i, int j) {
+    if (matriceCellules[i][j].getPresenceBombe()) { // Vérifie si la cellule contient une bombe
+        JOptionPane.showMessageDialog(null, "Vous avez perdu !", "Game Over", JOptionPane.ERROR_MESSAGE);
+        System.exit(0); // Ferme le jeu ou ajoute une autre logique de fin
+    } else {
+        revelerCellule(i, j); // Sinon, révélez la cellule
+    }
+}
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,9 +131,6 @@ public final class GrilleDeJeu {
         }
         return sb.toString();
     }
-
-    void clickSurCellule(int i, int j) {
-        revelerCellule(i-1,j-1);
-        }
 }
+
 

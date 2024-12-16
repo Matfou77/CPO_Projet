@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author foure
  */
 public class Partie {
-    private GrilleDeJeu grille;
+    GrilleDeJeu grille;
 
     public void initialiserPartie() {
     Scanner scanner = new Scanner(System.in);

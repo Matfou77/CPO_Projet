@@ -28,7 +28,7 @@ public final class Interface extends javax.swing.JFrame {
                 CelluleGraphique c = new CelluleGraphique(m.matriceCellules[i][j], j,i);
                 c.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        //action a effectuer
+                        //action a effectuer                    }
                         m.calculerBombesAdjacentes();
                         m.clickSurCellule(c.y , c.x);
                         m.revelerCellule(c.y, c.x);
