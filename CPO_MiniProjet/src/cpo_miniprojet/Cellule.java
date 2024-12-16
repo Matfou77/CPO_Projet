@@ -60,11 +60,11 @@ public class Cellule {
     @Override
     public String toString() {
         if (marquee) {
-            return "D"; // D pour Drapeau
+            return "🚩"; // D pour Drapeau
         } else if (!devoilee) {
-            return " "; // Non dévoilée
+            return "☁"; // Non dévoilée
         } else if (presenceBombe) {
-            return "B"; // Bombe dévoilée
+            return "💣"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {
             return String.valueOf(nbBombesAdjacentes); // Nombre de bombes adjacentes
         } else {
