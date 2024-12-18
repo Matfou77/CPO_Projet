@@ -1,5 +1,7 @@
 package cpo_miniprojet;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -19,6 +21,7 @@ public final class Interface extends javax.swing.JFrame {
      */
     public Interface() {
         initComponents();
+        PanneauGrille.setVisible(false);
         initialiserPartie();
         PanneauGrille.setLayout(new java.awt.GridLayout(10, 10)); 
         m.placerBombesAleatoirement(PROPERTIES, PROPERTIES);
@@ -45,30 +48,81 @@ public final class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Régles = new javax.swing.JButton();
+        Jouer = new javax.swing.JButton();
         PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 600));
-        getContentPane().setLayout(new java.awt.CardLayout(100, 100));
+
+        Régles.setText("Régles");
+        Régles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RéglesActionPerformed(evt);
+            }
+        });
+
+        Jouer.setText("Jouer");
+        Jouer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JouerActionPerformed(evt);
+            }
+        });
 
         PanneauGrille.setBackground(new java.awt.Color(204, 204, 204));
         PanneauGrille.setPreferredSize(new java.awt.Dimension(400, 400));
+        PanneauGrille.setLayout(new java.awt.CardLayout(100, 100));
 
-        javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
-        PanneauGrille.setLayout(PanneauGrilleLayout);
-        PanneauGrilleLayout.setHorizontalGroup(
-            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 425, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Régles, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                .addComponent(Jouer)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        PanneauGrilleLayout.setVerticalGroup(
-            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 387, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Régles)
+                    .addComponent(Jouer))
+                .addGap(554, 554, 554))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        getContentPane().add(PanneauGrille, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RéglesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RéglesActionPerformed
+        // TODO add your handling code here:
+        String regles = """
+                        Règles du Démineur :
+                        1. Le but est de découvrir toutes les cases sans mines.
+                        2. Les chiffres indiquent le nombre de mines adjacentes.
+                        3. Un clic droit place un drapeau pour marquer une mine.
+                        4. Si vous cliquez sur une mine, vous perdez.
+                        """;
+                // Affiche les règles dans une boîte de dialogue
+                JOptionPane.showMessageDialog(PanneauGrille, regles, "Règles du Démineur", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_RéglesActionPerformed
+
+    private void JouerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JouerActionPerformed
+        // TODO add your handling code here:
+        Jouer.setVisible(false);
+        PanneauGrille.setVisible(true);
+    }//GEN-LAST:event_JouerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,7 +158,9 @@ public final class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Jouer;
     private javax.swing.JPanel PanneauGrille;
+    private javax.swing.JButton Régles;
     // End of variables declaration//GEN-END:variables
 
 }
