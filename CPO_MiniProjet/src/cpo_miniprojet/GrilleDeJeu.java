@@ -108,9 +108,6 @@ public class GrilleDeJeu {
     public void clickSurCellule(int i, int j) {
         if (premierClic) {
             premierClic = false;
-
-            // Placer les bombes après le premier clic, mais ne pas placer de bombe sur la cellule cliquée et ses voisines
-            placerBombesAleatoirement(i, j);
             calculerBombesAdjacentes();
             
             // Vérifier que la cellule cliquée est bien vide, et révèler sa zone
