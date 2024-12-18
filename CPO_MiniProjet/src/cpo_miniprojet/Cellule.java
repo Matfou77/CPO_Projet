@@ -62,13 +62,13 @@ public class Cellule {
         if (marquee) {
             return "🚩"; // D pour Drapeau
         } else if (!devoilee) {
-            return "☁"; // Non dévoilée
+            return " "; // Non dévoilée
         } else if (presenceBombe) {
             return "💣"; // Bombe dévoilée
         } else if (nbBombesAdjacentes > 0) {
             return String.valueOf(nbBombesAdjacentes); // Nombre de bombes adjacentes
         } else {
-            return " "; // Cellule vide
+            return "░"; // Cellule vide
         }
     }
 }
