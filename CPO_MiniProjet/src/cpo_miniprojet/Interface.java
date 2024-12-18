@@ -1,5 +1,7 @@
 package cpo_miniprojet;
 
+import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -21,6 +23,7 @@ public final class Interface extends javax.swing.JFrame {
      */
     public Interface() {
         initComponents();
+
         PanneauGrille.setVisible(false);
         initialiserPartie();
         PanneauGrille.setLayout(new java.awt.GridLayout(10, 10)); 
@@ -37,7 +40,8 @@ public final class Interface extends javax.swing.JFrame {
                 
                 PanneauGrille.add(c); // ajout au Jpanel PanneauGrille 
             } 
-        } 
+        }
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,8 +57,11 @@ public final class Interface extends javax.swing.JFrame {
         PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 204));
+        setForeground(new java.awt.Color(204, 255, 204));
         setMinimumSize(new java.awt.Dimension(600, 600));
 
+        Régles.setBackground(new java.awt.Color(102, 204, 255));
         Régles.setText("Régles");
         Régles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,14 +69,23 @@ public final class Interface extends javax.swing.JFrame {
             }
         });
 
+        Jouer.setBackground(new java.awt.Color(255, 255, 153));
         Jouer.setText("Jouer");
+        Jouer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Jouer.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                JouerCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
         Jouer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JouerActionPerformed(evt);
             }
         });
 
-        PanneauGrille.setBackground(new java.awt.Color(204, 204, 204));
+        PanneauGrille.setBackground(new java.awt.Color(0, 51, 102));
         PanneauGrille.setPreferredSize(new java.awt.Dimension(400, 400));
         PanneauGrille.setLayout(new java.awt.CardLayout(100, 100));
 
@@ -78,28 +94,30 @@ public final class Interface extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Régles, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
-                .addComponent(Jouer)
-                .addContainerGap())
+                .addContainerGap(350, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Jouer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Régles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(350, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 200, Short.MAX_VALUE)
                     .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 200, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Régles)
-                    .addComponent(Jouer))
-                .addGap(554, 554, 554))
+                .addContainerGap()
+                .addComponent(Régles, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(Jouer, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(625, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 195, Short.MAX_VALUE)
                     .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 196, Short.MAX_VALUE)))
         );
 
         pack();
@@ -123,6 +141,10 @@ public final class Interface extends javax.swing.JFrame {
         Jouer.setVisible(false);
         PanneauGrille.setVisible(true);
     }//GEN-LAST:event_JouerActionPerformed
+
+    private void JouerCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_JouerCaretPositionChanged
+
+    }//GEN-LAST:event_JouerCaretPositionChanged
 
     /**
      * @param args the command line arguments
